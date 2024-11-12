@@ -5,19 +5,14 @@ const {info} = require("./info")
 
 const {spawn} = require("child_process");
 
-async function runCode({language = "", code = "", input = ""}) {
+async function runCode({code = "", input = ""}) {
     const timeout = 30;
+    const language = 'py';
 
     if (code === "")
         throw {
             status: 400,
             error: "No Code found to execute."
-        }
-
-    if (!supportedLanguages.includes(language))
-        throw {
-            status: 400,
-            error: `Please enter a valid language. Check documentation for more details: https://github.com/Jaagrav/CodeX-API#readme. The languages currently supported are: ${supportedLanguages.join(', ')}.`
         }
 
     const {jobID} = await createCodeFile(language, code);
@@ -51,7 +46,7 @@ async function runCode({language = "", code = "", input = ""}) {
 
             reject({
                 status: 408,
-                error: `CodeX API Timed Out. Your code took too long to execute, over ${timeout} seconds. Make sure you are sending input as payload if your code expects an input.`
+                error: `API Timed Out. Your code took too long to execute, over ${timeout} seconds.`
             })
         }, timeout * 1000);
 
