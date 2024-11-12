@@ -7,8 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV NODE_VERSION 16
 
 # Update and install dependencies, including Node 16 directly
-RUN apt-get update && apt-get -y install gcc mono-mcs golang-go \
-    default-jre default-jdk python3-pip python3 curl && \
+RUN apt-get update && apt-get -y install python3-pip python3 curl && \
     curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs && \
     rm -rf /var/lib/apt/lists/*
